@@ -1,15 +1,43 @@
-const box = document.querySelector('article');
+const main = document.querySelector('main');
+const [top, right, bottom, left, open] = main.children;
+const speed = 1000;
 
-box.addEventListener('click', () => {
-	console.log('test');
+open.addEventListener('click', () => {
 	new Anime(
-		box,
-		{ left: 300, backgroundColor: '#ff69b4' },
+		top,
+		{ width: '100%' },
 		{
-			duration: 1000,
-			easeType: 'linear',
+			duration: speed,
 			callback: () => {
-				new Anime(box, { top: 300, backgroundColor: '#000000' });
+				new Anime(
+					right,
+					{ height: '100%' },
+					{
+						duration: speed,
+						callback: () => {
+							new Anime(
+								bottom,
+								{ width: '100%' },
+								{
+									duration: speed,
+									callback: () => {
+										new Anime(
+											left,
+											{ height: '100%' },
+											{
+												duration: speed,
+												callback: () => {
+													content.classList.add('on');
+													open.classList.add('off');
+												},
+											}
+										);
+									},
+								}
+							);
+						},
+					}
+				);
 			},
 		}
 	);
