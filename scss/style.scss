@@ -3,13 +3,16 @@
 body {
 	width: 100%;
 	height: 100vh;
-	justify-content: center;
 	display: flex;
+	justify-content: center;
 	align-items: center;
+	overflow: hidden;
 
 	main {
 		width: 60vw;
 		height: 60vh;
+		min-width: 600px;
+		min-height: 400px;
 		position: relative;
 		perspective: 900px;
 
@@ -26,8 +29,8 @@ body {
 			height: 0%;
 			background: #000;
 			position: absolute;
-			top: 0;
 			right: 0;
+			top: 0;
 		}
 		.bottom {
 			width: 0%;
@@ -45,6 +48,7 @@ body {
 			left: 0;
 			bottom: 0;
 		}
+
 		.open {
 			display: inline-block;
 			width: 120px;
@@ -61,29 +65,77 @@ body {
 			cursor: pointer;
 			transition: 0.5s;
 
-			&:hover {
-				background: pink;
-			}
-
 			&.off {
 				opacity: 0;
 			}
+
+			&:hover {
+				background: hotpink;
+			}
 		}
+
 		.content {
 			width: 100%;
 			height: 100%;
-			background-color: #111;
+			background: #111;
 			position: absolute;
 			top: 0;
 			left: 0;
 			opacity: 0;
 			z-index: -1;
 			transform: rotateY(220deg);
+			padding: 100px;
 			transition: opacity 1s, transform 1s;
+
+			h2 {
+				width: 100%;
+				font: bold 3vw/1 'arial';
+				color: #fff;
+				margin-bottom: 40px;
+
+				span {
+					opacity: 0;
+					transform: scale(2);
+					transition-duration: 0.5s;
+				}
+			}
+			p {
+				width: 80%;
+				font: 16px/1.2 'arial';
+				color: #ddd;
+				opacity: 0;
+				transform: translateX(300px);
+				margin-bottom: 30px;
+				transition: 1s 1.5s;
+			}
+
+			.close {
+				width: 120px;
+				height: 40px;
+				background: #fff;
+				font: bold 16px/40px 'arial';
+				color: #333;
+				cursor: pointer;
+				transition: 1s 2s;
+				opacity: 0;
+				transform: translateX(300px);
+			}
 
 			&.on {
 				opacity: 1;
 				transform: rotateY(0deg);
+				p,
+				.close {
+					opacity: 1;
+					transform: translateX(0px);
+				}
+
+				h2 {
+					span {
+						opacity: 1;
+						transform: scale(1);
+					}
+				}
 			}
 		}
 	}
