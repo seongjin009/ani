@@ -14,20 +14,18 @@ const initScroll = 0;
 window.addEventListener('scroll', () => {
 	const scroll = window.scrollY;
 	//박스에 실 적용되는 스크롤 수치값을 반대로 300만큼 더해줘야됨
-	const scroll2 = scroll - secs[1].offsetTop - baseLine;
+
 	h1.style.transform = `translate(${scroll}px) rotate(${scroll}deg) scale(${1 + scroll / 300})`;
 	h1.style.opacity = 1 - scroll / 300;
 	console.log(scroll);
-	if (scroll > secs[1].offsetTop + baseLine) {
-		h2.style.transform = `translate(${scroll2}px) rotate(${scroll2}deg) scale(${
-			1 + scroll2 / 300
-		})`;
-		h2.style.opacity = 1 - scroll2 / 300;
-	} //원래위치로 스크롤시 조금씩 오차범위가 발행하기 때문에 원래값이 강제 보정처리
-	else {
-		h2.style.transform = `translate(${initScroll}px) rotate(${initScroll}deg) scale(${
-			1 + initScroll / 300
-		})`;
-		h2.style.opacity = 1 - initScroll / 300;
-	}
+	let scroll2 = 0;
+
+	//스크롤거리값이 2번째 색션영역에 들어가면 scroll2에는 scroll적용되는 값을 담고
+	//반대로 2번째 색션영역을 벗어나면 scroll2의 값을 0으로 초기화
+
+	scroll >= secs[1].offsetTop + baseLine
+		? (scroll2 = scroll - secs[1].offsetTop - baseLine)
+		: (scroll2 = 0);
+	h2.style.transform = `translate(${scroll2}px) rotate(${scroll2}deg) scale(${1 + scroll2 / 300})`;
+	h2.style.opacity = 1 - scroll2 / 300;
 });
